@@ -1,0 +1,10 @@
+{
+	"home_setup": [
+		{"model": "SMB2430HD"},
+		{"model": "DELL U2515H", "serial": "ABC123"},
+		{"model": "DELL U2515H", "serial": "ABC124"}
+	],
+	"work_setup": [
+		{"model": "DELL U2414", "serial": "ABC125"}
+	]
+}
