@@ -198,7 +198,8 @@ class Monitor:
     # Private
     def _set_modes(self, modes, active=None):
         self.modes = [MonitorMode(mode) for mode in modes]
-        self._set_active_mode(active)
+        if active:
+            self._set_active_mode(active)
     
     def _set_active_mode(self, active):
         active_mode = MonitorMode(active)
