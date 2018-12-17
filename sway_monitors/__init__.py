@@ -99,7 +99,7 @@ class Monitor:
 
         if background:
             actions.append("bg {:s} fill".format(background))
-            
+
         self.perform(actions)
 
     def disable(self):
@@ -200,7 +200,7 @@ class Monitor:
         self.modes = [MonitorMode(mode) for mode in modes]
         if active:
             self._set_active_mode(active)
-    
+
     def _set_active_mode(self, active):
         active_mode = MonitorMode(active)
         for mode in self.modes:
@@ -231,7 +231,7 @@ class Setup:
             monitors.append(Monitor(monitor, self.connection))
 
         self.monitors = monitors
-    
+
     def enable_left_to_right(self, monitors, align_top=True):
         for monitor in self.active_monitors():
             if monitor not in monitors:
