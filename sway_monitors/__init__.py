@@ -232,7 +232,39 @@ class Setup:
 
         self.monitors = monitors
 
-    def enable_left_to_right(self, monitors, align_top=True):
+    def enable(self, monitors, direction=None):
+        if direction is None:
+            direction = "right"
+
+        monitors = self.find_monitors(monitors)
+
+        # TODO: Maybe abstract this as well
+        # Disable monitors we are not going to use in the new setup
+        for monitor in self.active_monitors():
+            if monitor not in monitors:
+                monitor.disable()
+
+
+        logger.info('Enabling {:n} monitors'.format(len(monitors)))
+        if direction in ['up', 'left']:
+            monitors = reversed(monitors)
+
+        if direction in ["right", "left"]:
+            x_total = 0
+            for monitor in monitors:
+                mode = monitor.get_highest_mode()
+                monitor.enable((x_total, 0), mode)
+                x_total += mode.width
+        elif direction in ["down", "up"]:
+            y_total = 0
+            for monitor in monitors:
+                mode = monitor.get_highest_mode()
+                monitor.enable((0, y_total), mode)
+                y_total += mode.width
+        else:
+            raise ValueError('direction was not a proper direction')
+
+    def enable_left_to_right(self, monitors):
         for monitor in self.active_monitors():
             if monitor not in monitors:
                 monitor.disable()
@@ -286,16 +318,6 @@ class Setup:
                 return False
 
         return True
-
-    def check_and_enable_setup(self, props_list):
-        if self.check_setup(props_list):
-            logger.info('Found setup')
-            self.enable_left_to_right(self.find_monitors(props_list))
-            return True
-        else:
-            logger.info('Setup not found')
-
-        return False
 
 
 # Abstract to different module

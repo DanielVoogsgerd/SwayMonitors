@@ -9,8 +9,12 @@ def main():
     with open(os.path.join(os.path.dirname(__file__), "setup.json")) as f:
         setups = json.loads(f.read())
 
-    setup.check_and_enable_setup(setups["home_setup"])
-    setup.check_and_enable_setup(setups["work_setup"])
+
+    if setup.check_setup(setups['home_setup']):
+        setup.enable(setups['home_setup'], direction="right")
+
+    if setup.check_setup(setups['work_setup']):
+        setup.enable(setups['work_setup'], direction="right")
 
 
 if __name__ == "__main__":
