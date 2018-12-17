@@ -244,7 +244,7 @@ class Setup:
         x_total = 0
         for monitor in monitors:
             logger.info('Enabling monitor {:s}'.format(monitor.name))
-            mode = monitor.highest_mode()
+            mode = monitor.get_highest_mode()
             monitor.enable((x_total, 0), mode)
             x_total += mode.width
 
