@@ -51,33 +51,33 @@ class SetupTest(unittest.TestCase):
         self.assertFalse(self.setup.check_setup([{'model': 'DELL U2414'}, {'model':'DELL U2913WM'}]))
 
     # Big tests
-    # def test_check_and_enable(self):
-        # self.connection.clear()
+    def test_check_and_enable(self):
+        self.connection.clear()
 
-        # self.setup.check_and_enable_setup([{'model': 'DELL U2414H'}, {'model':'DELL U2913WM'}])
+        self.setup.check_and_enable_setup([{'model': 'DELL U2414H'}, {'model':'DELL U2913WM', 'serial':'HFDVR4Z0NIRM'}])
 
-        # self.assertEqual(len(self.connection.command_list), 2)
-        # self.assertEqual(self.connection.command_list[0], "output DP-3 position 0 0 resolution 1920x1080")
-        # self.assertEqual(self.connection.command_list[1], "output DP-4 position 1920 0 resolution 2560x1080")
+        self.assertEqual(len(self.connection.command_list), 2)
+        self.assertEqual(self.connection.command_list[0], "output DP-3 position 0 0 resolution 1920x1080")
+        self.assertEqual(self.connection.command_list[1], "output DP-4 position 1920 0 resolution 2560x1080")
 
 
-    # def test_check_and_enable_reversed(self):
-        # self.connection.clear()
+    def test_check_and_enable_reversed(self):
+        self.connection.clear()
 
-        # self.setup.check_and_enable_setup([{'model':'DELL U2913WM'}, {'model': 'DELL U2414H'}])
+        self.setup.check_and_enable_setup([{'model':'DELL U2913WM', 'serial':'HFDVR4Z0NIRM'}, {'model': 'DELL U2414H'}])
 
-        # self.assertEqual(len(self.connection.command_list), 2)
-        # self.assertEqual(self.connection.command_list[0], "output DP-4 position 0 0 resolution 2560x1080")
-        # self.assertEqual(self.connection.command_list[1], "output DP-3 position 2560 0 resolution 1920x1080")
+        self.assertEqual(len(self.connection.command_list), 2)
+        self.assertEqual(self.connection.command_list[0], "output DP-4 position 0 0 resolution 2560x1080")
+        self.assertEqual(self.connection.command_list[1], "output DP-3 position 2560 0 resolution 1920x1080")
 
-    # def test_check_and_enable_disable_monitor(self):
-        # self.connection.clear()
+    def test_check_and_enable_disable_monitor(self):
+        self.connection.clear()
 
-        # self.setup.find_monitor({'model': 'DELL U2913WM'}).active = True
-        # self.setup.check_and_enable_setup([{'model': 'DELL U2414H'}])
+        self.setup.find_monitor({'model': 'DELL U2913WM', 'serial':'HFDVR4Z0NIRM'}).active = True
+        self.setup.check_and_enable_setup([{'model': 'DELL U2414H'}])
 
-        # self.assertEqual(self.connection.command_list[0], "output DP-4 disable")
-        # self.assertEqual(self.connection.command_list[1], "output DP-3 position 0 0 resolution 1920x1080")
+        self.assertEqual(self.connection.command_list[0], "output DP-4 disable")
+        self.assertEqual(self.connection.command_list[1], "output DP-3 position 0 0 resolution 1920x1080")
 
 
 
