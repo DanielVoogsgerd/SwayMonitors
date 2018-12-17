@@ -1,0 +1,12 @@
+#!/usr/bin/env python
+import sway_monitors
+import os
+
+def main():
+    setup = sway_monitors.Setup()
+    for monitor in setup.find_monitors({'active': True}):
+        monitor.background(os.path.expanduser('~/Wallpapers/Day/valley.jpg'))
+
+if __name__ == "__main__":
+    main()
+
