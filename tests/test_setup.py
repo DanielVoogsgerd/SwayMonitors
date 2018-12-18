@@ -1,23 +1,7 @@
 import unittest
 from sway_monitors import MonitorMode, Setup, Monitor
-import json
 import pprint
-
-class FakeConnection:
-    def __init__(self):
-        self.command_list = []
-
-    def command(self, command):
-        self.command_list.append(command)
-
-    def clear(self):
-        self.command_list = []
-
-    def get_outputs(self):
-        with open('tests/setup.json') as f:
-            data = json.loads(f.read())
-
-        return data
+from .FakeConnection import FakeConnection
 
 
 class SetupTest(unittest.TestCase):
