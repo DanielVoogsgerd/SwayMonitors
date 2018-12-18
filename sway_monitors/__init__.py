@@ -133,7 +133,9 @@ class Monitor:
     def perform(self, actions):
         command_parts = ["output {:s}".format(self.name)]
         command_parts.extend(actions)
-        self.connection.command(" ".join(command_parts))
+        res = self.connection.command(" ".join(command_parts))
+        if res[0]['success'] == False:
+            raise Exception('Command failed')
 
     # Checks
     def has_property(self, prop):
@@ -318,4 +320,8 @@ class AmbigiousMonitorModeError(Exception):
 
 
 class MonitorModeNotFoundError(Exception):
+    pass
+
+
+class CommandError(Exception):
     pass
