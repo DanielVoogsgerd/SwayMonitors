@@ -4,7 +4,7 @@ import os
 
 def main():
     setup = sway_monitors.Setup()
-    for monitor in setup.find_monitors({'active': True}):
+    for monitor in setup.get_active_monitors():
         monitor.background(os.path.expanduser('~/Wallpapers/Day/valley.jpg'))
 
 if __name__ == "__main__":

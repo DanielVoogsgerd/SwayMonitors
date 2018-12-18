@@ -240,10 +240,9 @@ class Setup:
 
         # TODO: Maybe abstract this as well
         # Disable monitors we are not going to use in the new setup
-        for monitor in self.active_monitors():
+        for monitor in self.get_active_monitors():
             if monitor not in monitors:
                 monitor.disable()
-
 
         logger.info('Enabling {:n} monitors'.format(len(monitors)))
         if direction in ['up', 'left']:
@@ -282,12 +281,8 @@ class Setup:
 
     def disable_all_monitors(self):
         # Bad idea, sway does not like it if you have no monitors enabled
-        for monitor in self.active_monitors():
+        for monitor in self.get_active_monitors():
             monitor.disable()
-
-    def active_monitors(self):
-        monitors = self.monitors
-        return filter(lambda monitor: monitor.active, monitors)
 
     def find_monitor(self, properties):
         monitor = list(filter(lambda monitor: monitor.has_properties(properties), self.monitors))
@@ -315,6 +310,11 @@ class Setup:
                 return False
 
         return True
+
+    # Getters
+    def get_active_monitors(self):
+        monitors = self.monitors
+        return filter(lambda monitor: monitor.active, monitors)
 
 
 # Abstract to different module
