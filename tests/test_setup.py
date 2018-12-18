@@ -57,7 +57,6 @@ class SetupTest(unittest.TestCase):
         self.assertEqual(self.connection.command_list[0], "output DP-3 position 0 0 resolution 1920x1080")
         self.assertEqual(self.connection.command_list[1], "output DP-4 position 1920 0 resolution 2560x1080")
 
-
     def test_enable_reversed(self):
         self.connection.clear()
 
@@ -81,6 +80,41 @@ class SetupTest(unittest.TestCase):
         self.assertEqual(self.connection.command_list[0], "output DP-4 disable")
         self.assertEqual(self.connection.command_list[1], "output DP-3 position 0 0 resolution 1920x1080")
 
+    def test_enable_left_direction(self):
+        self.connection.clear()
+
+        self.setup.enable([
+            {'model': 'DELL U2414H'},
+            {'model':'DELL U2913WM', 'serial':'HFDVR4Z0NIRM'}
+        ], direction="left")
+
+        self.assertEqual(len(self.connection.command_list), 2)
+        self.assertEqual(self.connection.command_list[0], "output DP-4 position 0 0 resolution 2560x1080")
+        self.assertEqual(self.connection.command_list[1], "output DP-3 position 2560 0 resolution 1920x1080")
+
+    def test_enable_down_direction(self):
+        self.connection.clear()
+
+        self.setup.enable([
+            {'model': 'DELL U2414H'},
+            {'model':'DELL U2913WM', 'serial':'HFDVR4Z0NIRM'}
+        ], direction="down")
+
+        self.assertEqual(len(self.connection.command_list), 2)
+        self.assertEqual(self.connection.command_list[0], "output DP-3 position 0 0 resolution 1920x1080")
+        self.assertEqual(self.connection.command_list[1], "output DP-4 position 0 1080 resolution 2560x1080")
+
+    def test_enable_up_direction(self):
+        self.connection.clear()
+
+        self.setup.enable([
+            {'model': 'DELL U2414H'},
+            {'model':'DELL U2913WM', 'serial':'HFDVR4Z0NIRM'}
+        ], direction="up")
+
+        self.assertEqual(len(self.connection.command_list), 2)
+        self.assertEqual(self.connection.command_list[0], "output DP-4 position 0 0 resolution 2560x1080")
+        self.assertEqual(self.connection.command_list[1], "output DP-3 position 0 1080 resolution 1920x1080")
 
     def test_get_monitors(self):
         pass

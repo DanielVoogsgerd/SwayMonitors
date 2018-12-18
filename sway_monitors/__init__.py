@@ -260,7 +260,7 @@ class Setup:
             for monitor in monitors:
                 mode = monitor.get_highest_mode()
                 monitor.enable((0, y_total), mode)
-                y_total += mode.width
+                y_total += mode.height
         else:
             raise ValueError('direction was not a proper direction')
 
