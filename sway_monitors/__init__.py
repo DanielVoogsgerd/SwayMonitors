@@ -218,6 +218,7 @@ class Setup:
         if fetch:
             self.fetch_monitors()
 
+    # Actions
     def fetch_monitors(self):
         monitors = []
         for monitor_data in self.connection.get_outputs():
@@ -268,17 +269,8 @@ class Setup:
         for monitor in self.get_active_monitors():
             monitor.disable()
 
-    def find_monitor(self, properties):
-        monitor = list(filter(lambda monitor: monitor.has_properties(properties), self.monitors))
 
-        if len(monitor) > 1:
-            raise AmbigiousMonitorError('Monitor is ambigious')
-
-        if len(monitor) == 0:
-            raise MonitorNotFoundError('Could not find monitor')
-
-        return monitor[0]
-
+    # Checks
     def is_connected(self, screen_properties):
         # TODO: Think of a clearer name for this method @p :1
         try:
@@ -299,6 +291,17 @@ class Setup:
     def get_active_monitors(self):
         monitors = self.monitors
         return filter(lambda monitor: monitor.active, monitors)
+
+    def find_monitor(self, properties):
+        monitor = list(filter(lambda monitor: monitor.has_properties(properties), self.monitors))
+
+        if len(monitor) > 1:
+            raise AmbigiousMonitorError('Monitor is ambigious')
+
+        if len(monitor) == 0:
+            raise MonitorNotFoundError('Could not find monitor')
+
+        return monitor[0]
 
 
 # Abstract to different module
