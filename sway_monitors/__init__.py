@@ -263,22 +263,6 @@ class Setup:
         else:
             raise ValueError('direction was not a proper direction')
 
-    def enable_left_to_right(self, monitors):
-        for monitor in self.active_monitors():
-            if monitor not in monitors:
-                monitor.disable()
-
-
-        logger.info('Enabling {:n} monitors'.format(len(monitors)))
-
-
-        x_total = 0
-        for monitor in monitors:
-            logger.info('Enabling monitor {:s}'.format(monitor.name))
-            mode = monitor.get_highest_mode()
-            monitor.enable((x_total, 0), mode)
-            x_total += mode.width
-
     def disable_all_monitors(self):
         # Bad idea, sway does not like it if you have no monitors enabled
         for monitor in self.get_active_monitors():
