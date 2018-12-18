@@ -236,7 +236,7 @@ class Setup:
         if direction is None:
             direction = "right"
 
-        monitors = self.find_monitors(monitors)
+        monitors = [self.find_monitor(props) for props in monitors]
 
         # TODO: Maybe abstract this as well
         # Disable monitors we are not going to use in the new setup
@@ -299,9 +299,6 @@ class Setup:
             raise MonitorNotFoundError('Could not find monitor')
 
         return monitor[0]
-
-    def find_monitors(self, props_list):
-        return list(map(self.find_monitor, props_list))
 
     def is_connected(self, screen_properties):
         # TODO: Think of a clearer name for this method @p :1

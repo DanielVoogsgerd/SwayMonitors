@@ -25,12 +25,6 @@ class SetupTest(unittest.TestCase):
         self.connection = FakeConnection()
         self.setup = Setup(connection=self.connection)
 
-    def test_find_monitors(self):
-        monitors = self.setup.find_monitors([{'model': 'DELL U2414H'}, {'model': 'DELL U2913WM', 'serial': 'HFDVR4Z0NIRM'}])
-        self.assertEqual(len(monitors), 2)
-        for monitor in monitors:
-            self.assertIsInstance(monitor, Monitor)
-
     def test_find_monitor(self):
         self.assertIsInstance(self.setup.find_monitor({'model': 'DELL U2414H'}), Monitor)
 
